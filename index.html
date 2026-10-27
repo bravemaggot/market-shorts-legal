@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MarketShorts — личный инструмент публикации коротких видео</title>
+<meta name="description" content="MarketShorts — персональный инструмент, который готовит короткие вертикальные видео о товарах и публикует их в собственный YouTube-канал владельца через YouTube Data API.">
+<style>
+:root{--bg:#0b0b0d;--fg:#eae7e2;--mut:#9a958d;--acc:#d7ff4f;--line:#222226}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:56px 22px 80px}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 14px;letter-spacing:-.02em}
+h2{font-size:20px;margin:36px 0 10px}
+p,li{color:#d6d2cb}
+.lead{font-size:18px;color:var(--mut)}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0;background:#111114}
+a{color:var(--acc)}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+code{background:#17171b;padding:2px 6px;border-radius:5px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>MarketShorts</h1>
+  <p class="lead">Личный инструмент для подготовки и публикации коротких вертикальных видео в собственный YouTube-канал.</p>
+
+  <div class="card">
+    <p><strong>Что делает приложение.</strong> По ссылке на товар собирает открытые данные о нём, генерирует вертикальный ролик с озвучкой и субтитрами и загружает готовое видео в YouTube-канал владельца через YouTube Data API v3.</p>
+    <p><strong>Кто использует.</strong> Один человек — владелец канала и владелец этого приложения. Приложение не предназначено для третьих лиц, не публикуется в магазинах приложений и не предоставляет доступ другим пользователям.</p>
+    <p><strong>Доступ к данным.</strong> Запрашиваются только два разрешения: <code>youtube.upload</code> (загрузка видео) и <code>youtube.readonly</code> (проверка статуса загруженных видео собственного канала). Почта, контакты, файлы на Диске и любые другие данные Google не запрашиваются.</p>
+  </div>
+
+  <h2>Документы</h2>
+  <ul>
+    <li><a href="privacy.html">Политика конфиденциальности</a></li>
+    <li><a href="terms.html">Условия использования</a></li>
+  </ul>
+
+  <footer>
+    MarketShorts · личный проект Ивана · связь: <a href="mailto:maggotbrave@gmail.com">maggotbrave@gmail.com</a>
+  </footer>
+</div>
+</body>
+</html>

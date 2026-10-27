@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика конфиденциальности — MarketShorts</title>
+<style>
+:root{--bg:#0b0b0d;--fg:#eae7e2;--mut:#9a958d;--acc:#d7ff4f;--line:#222226}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:56px 22px 80px}
+h1{font-size:clamp(26px,4.6vw,36px);line-height:1.18;margin:0 0 8px;letter-spacing:-.02em}
+h2{font-size:19px;margin:32px 0 8px}
+p,li{color:#d6d2cb}
+.mut{color:var(--mut)}
+a{color:var(--acc)}
+code{background:#17171b;padding:2px 6px;border-radius:5px;font-size:14px}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Политика конфиденциальности</h1>
+  <p class="mut">Приложение: MarketShorts. Обновлено 27 октября 2026 года.</p>
+
+  <p>MarketShorts — персональное приложение, которое использует YouTube Data API v3 для загрузки видео в канал своего владельца. Политика описывает, какие данные приложение получает и как с ними обращается.</p>
+
+  <h2>1. Какие данные запрашиваются</h2>
+  <p>При авторизации через Google приложение запрашивает два разрешения:</p>
+  <ul>
+    <li><code>https://www.googleapis.com/auth/youtube.upload</code> — загрузка видео в канал владельца;</li>
+    <li><code>https://www.googleapis.com/auth/youtube.readonly</code> — чтение статуса и метаданных собственных видео канала.</li>
+  </ul>
+  <p>Приложение не запрашивает доступ к Gmail, контактам, Google Диску, календарю, аналитике других каналов и любым другим данным аккаунта Google.</p>
+
+  <h2>2. Какие данные обрабатываются</h2>
+  <p>Приложение работает с: названием и идентификатором собственного канала, метаданными загруженных видео (идентификатор, статус обработки, видимость) и OAuth-токенами доступа. Иных персональных данных приложение не собирает.</p>
+
+  <h2>3. Где хранятся данные</h2>
+  <p>Все данные хранятся локально на компьютере владельца: OAuth-токены — в локальном файле с ограниченными правами доступа, метаданные публикаций — в локальной базе данных. Данные не передаются на сторонние серверы, не публикуются и не используются для рекламы.</p>
+
+  <h2>4. Передача третьим лицам</h2>
+  <p>Приложение не передаёт данные третьим лицам. Единственная внешняя система, с которой взаимодействует приложение, — сервисы Google (YouTube Data API), и только в объёме, необходимом для загрузки видео.</p>
+
+  <h2>5. Срок хранения и удаление</h2>
+  <p>Токены и метаданные хранятся до момента отзыва доступа или удаления локальных файлов приложения. Отозвать доступ можно в любой момент на странице <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>; после отзыва приложение теряет возможность обращаться к аккаунту.</p>
+
+  <h2>6. Безопасность</h2>
+  <p>Файлы с токенами доступны только локальному пользователю, не попадают в системы контроля версий и не передаются по сети, кроме запросов к API Google по защищённому соединению.</p>
+
+  <h2>7. Дети</h2>
+  <p>Приложение не предназначено для использования детьми и не собирает данные о них.</p>
+
+  <h2>8. Изменения политики</h2>
+  <p>Актуальная версия политики всегда доступна по этому адресу. Дата обновления указана в начале страницы.</p>
+
+  <h2>9. Контакты</h2>
+  <p>По любым вопросам, связанным с обработкой данных: <a href="mailto:maggotbrave@gmail.com">maggotbrave@gmail.com</a>.</p>
+
+  <footer>MarketShorts · <a href="index.html">на главную</a></footer>
+</div>
+</body>
+</html>
