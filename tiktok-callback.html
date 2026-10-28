@@ -3,48 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TikTok OAuth Callback — MarketShorts</title>
+<title>TikTok авторизация — MarketShorts</title>
 <style>
 :root{--bg:#0b0b0d;--fg:#eae7e2;--mut:#9a958d;--acc:#d7ff4f;--line:#222226}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.wrap{max-width:520px;padding:40px 24px;text-align:center}
-h1{font-size:clamp(24px,4vw,32px);margin:0 0 12px}
-p{color:var(--mut);margin:0 0 24px}
-code{background:#17171b;padding:2px 6px;border-radius:5px;font-size:14px}
-.card{border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:24px;background:#111114;text-align:left}
-.pre{background:#0d0d0f;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font-size:13px;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:56px 22px 80px}
+h1{font-size:clamp(24px,4.4vw,32px);margin:0 0 10px;letter-spacing:-.02em}
+p{color:#d6d2cb}
+.mut{color:var(--mut)}
+code{background:#17171b;padding:3px 8px;border-radius:6px;font-size:14px;word-break:break-all}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:22px 0;background:#111114}
+.ok{color:var(--acc);font-weight:600}
+.err{color:#ff7b72;font-weight:600}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+a{color:var(--acc)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>TikTok OAuth Callback</h1>
-  <p>Эта страница принимает код авторизации от TikTok и передаёт его локальному серверу MarketShorts.</p>
-  <p>Если вы видите эту страницу — значит, перенаправление сработало. Код будет извлечён автоматически.</p>
-  <div class="card">
-    <strong>Ожидаемые параметры:</strong>
-    <div class="pre"><code>?code=...&state=...&scopes=...</code></div>
-    <p style="margin-top:12px;font-size:14px">Локальный сервер слушает на <code>http://127.0.0.1:8787/callback</code>.</p>
+  <h1>Авторизация TikTok</h1>
+  <p class="mut">MarketShorts — личный инструмент публикации. Эта страница только принимает код авторизации.</p>
+
+  <div class="card" id="card">
+    <p id="status" class="mut">Обрабатываю ответ…</p>
+    <p class="mut" id="detail"></p>
   </div>
-  <p style="margin-top:24px;font-size:13px"><a href="index.html" style="color:var(--acc)">← Назад к MarketShorts</a></p>
+
+  <p class="mut">Если страница не закрылась автоматически — вернитесь в терминал, где запущен скрипт: он продолжит работу сам.</p>
+
+  <footer>MarketShorts · <a href="index.html">на главную</a> · <a href="privacy.html">политика</a></footer>
 </div>
 <script>
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  const state = params.get('state');
-  const scopes = params.get('scopes');
-  if (code) {
-    fetch('http://127.0.0.1:8787/callback', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, state, scopes })
-    }).then(r => r.text()).then(t => {
-      document.body.innerHTML = '<h1>Готово</h1><p>Код получен и передан локальному серверу.</p><pre>' + t + '</pre>';
-    }).catch(e => {
-      document.body.innerHTML = '<h1>Ошибка</h1><p>Не удалось отправить код: ' + e.message + '</p>';
-    });
+(function () {
+  var q = new URLSearchParams(location.search);
+  var code = q.get("code");
+  var state = q.get("state") || "";
+  var err = q.get("error");
+  var errDesc = q.get("error_description") || "";
+  var statusEl = document.getElementById("status");
+  var detailEl = document.getElementById("detail");
+
+  if (err) {
+    statusEl.className = "err";
+    statusEl.textContent = "TikTok вернул ошибку: " + err;
+    detailEl.textContent = errDesc;
+    return;
   }
+  if (!code) {
+    statusEl.className = "err";
+    statusEl.textContent = "В ссылке нет кода авторизации.";
+    detailEl.textContent = "Откройте страницу заново из скрипта MarketShorts.";
+    return;
+  }
+
+  statusEl.className = "ok";
+  statusEl.textContent = "Код получен. Передаю его локальному скрипту…";
+  detailEl.innerHTML = "Код: <code>" + code.replace(/[<>&"]/g, "") + "</code>";
+
+  var url = "http://127.0.0.1:8787/callback?code=" + encodeURIComponent(code) +
+            "&state=" + encodeURIComponent(state);
+  fetch(url, { mode: "no-cors" }).then(function () {
+    statusEl.textContent = "Готово. Можно закрыть эту вкладку и вернуться в терминал.";
+  }).catch(function () {
+    statusEl.className = "err";
+    statusEl.textContent = "Не удалось связаться с локальным скриптом.";
+    detailEl.textContent = "Убедитесь, что скрипт MarketShorts запущен, и скопируйте код вручную.";
+  });
 })();
 </script>
 </body>
